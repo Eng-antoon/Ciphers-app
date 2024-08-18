@@ -197,66 +197,64 @@ function downloadOutputAsImage() {
 // Numeric Cipher
 function numericEncrypt(text) {
     const alphabet = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي";
-    return text.split('').map(char => {
+    const encryptedArray = text.split('').map(char => {
         if (char === ' ') return '|'; // Use "|" as the separator
         const index = alphabet.indexOf(char);
         return index !== -1 ? (index + 1) : char;
-    }).join('-');
+    });
+    return encryptedArray.reverse().join('-'); // Reverse the array before joining
 }
 
 function numericDecrypt(code) {
     const alphabet = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي";
-    return code.split('-').map(num => {
+    const decryptedArray = code.split('-').map(num => {
         if (num === '|') return ' '; // Replace "|" back to space
         const index = parseInt(num) - 1;
         return alphabet[index] || num;
-    }).join('');
+    });
+    return decryptedArray.reverse().join(''); // Reverse the array before joining
 }
+
+
 
 // Reverse Cipher
 function reverseCipher(text) {
-    return text.split('').reverse().join('');
+    const alphabet = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي";
+    const reverseAlphabet = alphabet.split('').reverse().join('');
+    return text.split('').map(char => {
+        const index = alphabet.indexOf(char);
+        return index !== -1 ? reverseAlphabet[index] : char;
+    }).join('');
 }
+
 
 // Jesus Cipher
 function jesusEncrypt(text) {
-    const matrix = [
-        ['ا', 'ب', 'ت', 'ث', 'ج'],
-        ['ح', 'خ', 'د', 'ذ', 'ر'],
-        ['ز', 'س', 'ش', 'ص', 'ض'],
-        ['ط', 'ظ', 'ع', 'غ', 'ف'],
-        ['ق', 'ك', 'ل', 'م', 'ن'],
-        ['ه', 'و', 'ي', 'ى', 'ة']
-    ];
+    const matrix = {
+        'ا': 'ي1', 'ب': 'ي2', 'ت': 'ي3', 'ث': 'ي4', 'ج': 'ي5', 'ح': 'ي6', 'خ': 'ي7',
+        'د': 'س1', 'ذ': 'س2', 'ر': 'س3', 'ز': 'س4', 'س': 'س5', 'ش': 'س6', 'ص': 'س7',
+        'ض': 'و1', 'ط': 'و2', 'ظ': 'و3', 'ع': 'و4', 'غ': 'و5', 'ف': 'و6', 'ق': 'و7',
+        'ك': 'ع1', 'ل': 'ع2', 'م': 'ع3', 'ن': 'ع4', 'ه': 'ع5', 'و': 'ع6', 'ي': 'ع7'
+    };
     return text.split('').map(char => {
         if (char === ' ') return '|'; // Use "|" as the separator
-        for (let i = 0; i < matrix.length; i++) {
-            for (let j = 0; j < matrix[i].length; j++) {
-                if (matrix[i][j] === char) {
-                    return `${i + 1}${j + 1}`;
-                }
-            }
-        }
-        return char;
+        return matrix[char] || char;
     }).join('-');
 }
 
 function jesusDecrypt(code) {
-    const matrix = [
-        ['ا', 'ب', 'ت', 'ث', 'ج'],
-        ['ح', 'خ', 'د', 'ذ', 'ر'],
-        ['ز', 'س', 'ش', 'ص', 'ض'],
-        ['ط', 'ظ', 'ع', 'غ', 'ف'],
-        ['ق', 'ك', 'ل', 'م', 'ن'],
-        ['ه', 'و', 'ي', 'ى', 'ة']
-    ];
+    const matrix = {
+        'ي1': 'ا', 'ي2': 'ب', 'ي3': 'ت', 'ي4': 'ث', 'ي5': 'ج', 'ي6': 'ح', 'ي7': 'خ',
+        'س1': 'د', 'س2': 'ذ', 'س3': 'ر', 'س4': 'ز', 'س5': 'س', 'س6': 'ش', 'س7': 'ص',
+        'و1': 'ض', 'و2': 'ط', 'و3': 'ظ', 'و4': 'ع', 'و5': 'غ', 'و6': 'ف', 'و7': 'ق',
+        'ع1': 'ك', 'ع2': 'ل', 'ع3': 'م', 'ع4': 'ن', 'ع5': 'ه', 'ع6': 'و', 'ع7': 'ي'
+    };
     return code.split('-').map(pair => {
         if (pair === '|') return ' '; // Replace "|" back to space
-        const row = parseInt(pair[0]) - 1;
-        const col = parseInt(pair[1]) - 1;
-        return matrix[row][col];
+        return matrix[pair] || pair;
     }).join('');
 }
+
 
 // Caesar Cipher
 function caesarEncrypt(text, shift) {
