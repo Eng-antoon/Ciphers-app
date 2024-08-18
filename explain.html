@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explanation of Ciphers</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="menu-content">
+            <button onclick="showCipher('numeric')">الشفرة الرقمية</button>
+            <button onclick="showCipher('reverse')">الشفرة المعكوسة</button>
+            <button onclick="showCipher('jesus')">شفرة يسوع</button>
+            <button onclick="showCipher('caesar')">شفرة قيصر</button>
+            <button onclick="showCipher('polybius')">الشفرة المربعة</button>
+            <button onclick="showCipher('morse')">شفرة مورس</button>
+            <button onclick="showCipher('x-cipher')">شفرة الإكس</button>
+            <button onclick="showCipher('semaphore')">شفرة السيمافور</button>
+        </div>
+        <div class="cipher-container" id="cipher-container">
+            <!-- Placeholder for Cipher Explanation -->
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.menu-content');
+            menu.classList.toggle('open');
+        }
+
+        function showCipher(cipherType) {
+            const container = document.getElementById('cipher-container');
+            let content = '';
+            switch (cipherType) {
+                case 'numeric':
+                    content = '<h2>الشفرة الرقمية</h2><p>تحويل كل حرف إلى رقمه المطابق في الأبجدية.</p><p>مثال: "كشافة العذراء مريم بمسرة" -> 22-1-19-21-7 | 20-8-3-16-4 | 6-15-1-19-3</p>';
+                    break;
+                case 'reverse':
+                    content = '<h2>الشفرة المعكوسة</h2><p>عكس ترتيب الحروف.</p><p>مثال: "كشافة العذراء مريم بمسرة" -> "ةرس مب ميرم ءرازع ةفاشك"</p>';
+                    break;
+                case 'jesus':
+                    content = '<h2>شفرة يسوع</h2><p>استخدام شبكة (مصفوفة) لتحويل الحروف إلى رموز من رقمين تمثل الصف والعمود.</p><p>مثال: "كشافة العذراء مريم بمسرة" -> 51-42-13-34-22 | 33-45-61-24-23 | 56-55-41-52-43</p>';
+                    break;
+                case 'caesar':
+                    content = '<h2>شفرة قيصر</h2><p>إزاحة كل حرف في النص بمقدار ثابت في الأبجدية.</p><p>مثال: "كشافة العذراء مريم بمسرة" -> لمصغحة الغكباغ مرسن ببقفش</p>';
+                    break;
+                case 'polybius':
+                    content = '<h2>الشفرة المربعة (Polybius Square)</h2><p>استخدام شبكة 5x5 أو 6x6 حيث يتم تحديد كل حرف برقمين يمثلان الصف والعمود.</p><p>مثال: "كشافة العذراء مريم بمسرة" -> 52-41-12-33-22 | 33-45-61-14-22 | 54-53-31-42-33</p>';
+                    break;
+                case 'morse':
+                    content = '<h2>شفرة مورس</h2><p>استخدام النقاط والخطوط لتمثيل كل حرف.</p><p>مثال: "كشافة العذراء مريم بمسرة" -> -.-. .- ... .... ..-. .- | .-.. .- --.. .-.- | .- ...</p>';
+                    break;
+                case 'x-cipher':
+                    content = '<h2>شفرة الإكس</h2><p>تشفير الحروف باستخدام طريقة خاصة تعتمد على تقاطع خطوط.</p><p>مثال: "كشافة العذراء مريم بمسرة" -> تفاصيل مشفرة...</p>';
+                    break;
+                case 'semaphore':
+                    content = '<h2>شفرة السيمافور</h2><p>استخدام إشارات بالأيدي لتمثيل الحروف.</p><p>مثال: "كشافة العذراء مريم بمسرة" -> إشارات مرئية...</p>';
+                    break;
+            }
+            container.innerHTML = content;
+            container.style.animation = 'fadeIn 0.5s ease-in-out';
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

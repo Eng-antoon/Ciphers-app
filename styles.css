@@ -1,0 +1,213 @@
+body {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+}
+
+.hamburger-menu {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.hamburger-menu .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+.menu-content {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.menu-content a {
+    text-decoration: none;
+    color: #ff6f61;
+    margin: 10px 0;
+}
+
+.menu-content.open {
+    display: flex;
+}
+
+h1.title {
+    margin-bottom: 20px;
+    color: #ff6f61;
+}
+
+label {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+    text-align: right;
+}
+
+textarea, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+}
+
+button {
+    background-color: #ff6f61;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+    background-color: #ff9478;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.copy-icon {
+    position: absolute;
+    bottom: 30px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #ff6f61;
+}
+
+#buttons-container {
+    display: none;
+    margin-bottom: 20px;
+}
+
+.morse-buttons button {
+    width: 22%;
+    margin: 5px;
+}
+
+.utility-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.utility-buttons button {
+    width: 48%;
+}
+
+#download-image {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+#download-image:hover {
+    background-color: #ff9478;
+}
+
+#caesar-index-container {
+    display: none;
+    margin-top: -10px;
+}
+
+#caesar-index-container label {
+    display: inline-block;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+#output-text {
+    /* padding-right: 50px; */
+    direction: rtl;
+}
+
+#warning {
+    display: none;
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffcc00;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInOut 4s;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    10%, 90% { opacity: 1; }
+}
+
+@media (max-width: 600px) {
+    .container {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.cipher-container {
+    margin-top: 30px;
+}
+
+.cipher-container h2 {
+    color: #ff6f61;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.cipher-container p {
+    color: #333;
+    text-align: right;
+    margin-top: 10px;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+button {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}

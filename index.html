@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Ciphers App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="menu-content">
+            <a href="explain.html">شرح الشفرات</a>
+        </div>
+
+        <h1 class="title">برنامج الشفرات</h1>
+
+        <label for="instant-convert">التحويل الفوري:</label>
+        <input type="checkbox" id="instant-convert" onchange="toggleInstantConvert();">
+        <select id="instant-mode" style="display: none;" onchange="updateInstantMode();">
+            <option value="encrypt">تشفير</option>
+            <option value="decrypt">فك التشفير</option>
+        </select>
+
+        <div class="cipher-selector">
+            <label for="cipher-type">اختر نوع الشفرة:</label>
+            <select id="cipher-type" onchange="updatePlaceholder(); toggleButtons();">
+                <option value="numeric">الشفرة الرقمية</option>
+                <option value="reverse">الشفرة المعكوسة</option>
+                <option value="jesus">شفرة يسوع</option>
+                <option value="caesar">شفرة قيصر</option>
+                <option value="polybius">الشفرة المربعة</option>
+                <option value="morse">شفرة مورس</option>
+                <option value="x-cipher">شفرة الإكس</option>
+                <option value="semaphore">شفرة السيمافور</option>
+            </select>
+        </div>
+
+        <textarea id="input-text" placeholder="أدخل النص هنا..." oninput="handleInstantConvert();"></textarea>
+
+        <div id="caesar-index-container" style="display: none;">
+            <label for="caesar-index">إدخال معامل الإزاحة (لشفرة قيصر):</label>
+            <input type="number" id="caesar-index" value="3" min="1">
+        </div>
+
+        <div id="buttons-container" class="morse-buttons">
+            <button onclick="appendInput('.');">.</button>
+            <button onclick="appendInput('-');">-</button>
+            <button onclick="appendInput(' ');">Space</button>
+            <button onclick="appendInput('|');">Separator</button>
+        </div>
+
+        <div class="buttons">
+            <button id="encrypt-btn" onclick="processText('encrypt');">تشفير</button>
+            <button id="decrypt-btn" onclick="processText('decrypt');">فك التشفير</button>
+        </div>
+
+        <div class="utility-buttons">
+            <button id="clear-btn" onclick="clearText();">مسح</button>
+            <button id="paste-btn" onclick="pasteText();">لصق</button>
+        </div>
+
+        <textarea id="output-text" placeholder="النتيجة ستظهر هنا..." readonly></textarea>
+        <span id="copy-btn" class="copy-icon" title="نسخ" onclick="copyToClipboard()">📋</span>
+        <button id="download-image" onclick="downloadOutputAsImage()">تحميل كصورة</button>
+
+        <div id="warning" class="warning">يرجى ملاحظة أن هذه العملية قد تكون بلا معنى!</div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
