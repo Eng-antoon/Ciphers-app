@@ -12,6 +12,8 @@ document.getElementById('paste-btn').addEventListener('click', pasteText);
 
 document.getElementById('copy-btn').addEventListener('click', copyToClipboard);
 
+document.getElementById('download-image').addEventListener('click', downloadOutputAsImage);
+
 function updatePlaceholder() {
     const cipherType = document.getElementById('cipher-type').value;
     const inputText = document.getElementById('input-text');
@@ -41,6 +43,9 @@ function updatePlaceholder() {
             break;
         case 'semaphore':
             placeholderText = 'مثال: "كشافة" -> إشارات السيمافور';
+            break;
+        case 'clock':
+            placeholderText = 'مثال: "كشافة" -> شفرة الساعة';
             break;
     }
 
@@ -99,6 +104,9 @@ function processText(mode) {
         case 'semaphore':
             outputText = mode === 'encrypt' ? semaphoreEncrypt(inputText) : semaphoreDecrypt(inputText);
             break;
+        case 'clock':
+            outputText = mode === 'encrypt' ? clockCipherEncrypt(inputText) : clockCipherDecrypt(inputText);
+            break;
     }
 
     if (mode === 'encrypt' && (inputText === outputText || !inputText)) {
@@ -150,6 +158,38 @@ function handleInstantConvert() {
         const mode = document.getElementById('instant-mode').value;
         processText(mode);
     }
+}
+
+function downloadOutputAsImage() {
+    const outputText = document.getElementById('output-text').value;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const lineHeight = 50;
+    const fontSize = 36;
+
+    // Set canvas dimensions
+    canvas.width = 800;
+    canvas.height = 600;
+
+    // Set font
+    ctx.font = `${fontSize}px Arial`;
+    ctx.fillStyle = '#000';
+    ctx.textAlign = 'center';
+
+    const lines = outputText.split('|'); // Splitting by "|"
+    const x = canvas.width / 2;
+    let y = (canvas.height / 2) - ((lines.length / 2) * lineHeight) + fontSize / 2;
+
+    lines.forEach(line => {
+        ctx.fillText(line.trim(), x, y);
+        y += lineHeight;
+    });
+
+    // Create an image and download
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL();
+    link.download = 'encrypted_output.png';
+    link.click();
 }
 
 // Cipher Functions
@@ -281,22 +321,27 @@ function polybiusDecrypt(code) {
 function morseEncrypt(text) {
     const morseCode = {
         'ا': '.-', 'ب': '-...', 'ت': '-.-.', 'ث': '-..', 'ج': '.---',
-        'ح': '....', 'خ': '-.-.', 'د': '-..', 'ذ': '-.-', 'ر': '.-.', 
-        'ز': '--..', 'س': '...', 'ش': '---', 'ص': '-.-.', 'ض': '-..-', 
-        'ط': '-', 'ظ': '--.', 'ع': '.--', 'غ': '--.-', 'ف': '..-.', 
-        'ق': '--.', 'ك': '-.-', 'ل': '.-..', 'م': '--', 'ن': '-.', 
-        'ه': '....', 'و': '.--', 'ي': '..', 'ى': '-.--', 'ة': '...-', '|': '|'
+        'ح': '....', 'خ': '-.-.', 'د': '-..', 'ذ': '-.-', 'ر': '.-.',
+        'ز': '--..', 'س': '...', 'ش': '---', 'ص': '-.-.', 'ض': '-..-',
+        'ط': '-', 'ظ': '--.', 'ع': '.--', 'غ': '--.-', 'ف': '..-.',
+        'ق': '--.', 'ك': '-.-', 'ل': '.-..', 'م': '--', 'ن': '-.',
+        'ه': '....', 'و': '.--', 'ي': '..', 'ى': '-.--', 'ة': '...-',
+        ' ': '|'
     };
-    return text.split('').map(char => morseCode[char] || char).join(' ');
+
+    return text.split(' ').map(word => {
+        return word.split('').map(char => morseCode[char] || char).join(' ');
+    }).join(' | ');
 }
+
 
 function morseDecrypt(code) {
     const morseCode = {
         'ا': '.-', 'ب': '-...', 'ت': '-.-.', 'ث': '-..', 'ج': '.---',
-        'ح': '....', 'خ': '-.-.', 'د': '-..', 'ذ': '-.-', 'ر': '.-.', 
-        'ز': '--..', 'س': '...', 'ش': '---', 'ص': '-.-.', 'ض': '-..-', 
-        'ط': '-', 'ظ': '--.', 'ع': '.--', 'غ': '--.-', 'ف': '..-.', 
-        'ق': '--.', 'ك': '-.-', 'ل': '.-..', 'م': '--', 'ن': '-.', 
+        'ح': '....', 'خ': '-.-.', 'د': '-..', 'ذ': '-.-', 'ر': '.-.',
+        'ز': '--..', 'س': '...', 'ش': '---', 'ص': '-.-.', 'ض': '-..-',
+        'ط': '-', 'ظ': '--.', 'ع': '.--', 'غ': '--.-', 'ف': '..-.',
+        'ق': '--.', 'ك': '-.-', 'ل': '.-..', 'م': '--', 'ن': '-.',
         'ه': '....', 'و': '.--', 'ي': '..', 'ى': '-.--', 'ة': '...-', '|': '|'
     };
     const inverseMorseCode = Object.fromEntries(Object.entries(morseCode).map(([v, k]) => [k, v]));
@@ -355,4 +400,31 @@ function semaphoreDecrypt(code) {
         '|': '|'
     };
     return code.split(' ').map(symbol => symbol === '|' ? ' ' : semaphoreTable[symbol] || symbol).join('');
+}
+
+// Clock Cipher
+function clockCipherEncrypt(text) {
+    const clockTable = {
+        'ا': '3:00', 'ب': '3:05', 'ت': '3:10', 'ث': '3:15', 'ج': '3:20',
+        'ح': '3:25', 'خ': '3:30', 'د': '3:35', 'ذ': '3:40', 'ر': '3:45',
+        'ز': '3:50', 'س': '3:55', 'ش': '4:00', 'ص': '4:05', 'ض': '4:10',
+        'ط': '4:15', 'ظ': '4:20', 'ع': '4:25', 'غ': '4:30', 'ف': '4:35',
+        'ق': '4:40', 'ك': '4:45', 'ل': '4:50', 'م': '4:55', 'ن': '5:00',
+        'ه': '5:05', 'و': '5:10', 'ي': '5:15', 'ى': '5:20', 'ة': '5:25',
+        '|': '|'
+    };
+    return text.split('').map(char => char === ' ' ? '|' : clockTable[char] || char).join(' ');
+}
+
+function clockCipherDecrypt(code) {
+    const clockTable = {
+        '3:00': 'ا', '3:05': 'ب', '3:10': 'ت', '3:15': 'ث', '3:20': 'ج',
+        '3:25': 'ح', '3:30': 'خ', '3:35': 'د', '3:40': 'ذ', '3:45': 'ر',
+        '3:50': 'ز', '3:55': 'س', '4:00': 'ش', '4:05': 'ص', '4:10': 'ض',
+        '4:15': 'ط', '4:20': 'ظ', '4:25': 'ع', '4:30': 'غ', '4:35': 'ف',
+        '4:40': 'ق', '4:45': 'ك', '4:50': 'ل', '4:55': 'م', '5:00': 'ن',
+        '5:05': 'ه', '5:10': 'و', '5:15': 'ي', '5:20': 'ى', '5:25': 'ة',
+        '|': '|'
+    };
+    return code.split(' ').map(symbol => symbol === '|' ? ' ' : clockTable[symbol] || symbol).join('');
 }

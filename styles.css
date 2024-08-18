@@ -72,7 +72,9 @@ label {
     text-align: right;
 }
 
-textarea, select, button {
+textarea,
+select,
+button {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -160,7 +162,6 @@ button:active {
 }
 
 #output-text {
-    /* padding-right: 50px; */
     direction: rtl;
 }
 
@@ -179,8 +180,15 @@ button:active {
 }
 
 @keyframes fadeInOut {
-    0%, 100% { opacity: 0; }
-    10%, 90% { opacity: 1; }
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    10%,
+    90% {
+        opacity: 1;
+    }
 }
 
 @media (max-width: 600px) {
@@ -205,9 +213,4 @@ button:active {
     margin-top: 10px;
     font-size: 1.1em;
     line-height: 1.6;
-}
-
-button {
-    font-size: 1.2em;
-    margin-bottom: 20px;
 }
