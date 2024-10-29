@@ -18,7 +18,7 @@
         <div class="menu-content">
             <button onclick="showCipher('numeric')">الشفرة الرقمية</button>
             <button onclick="showCipher('reverse')">الشفرة المعكوسة</button>
-            <button onclick="showCipher('jesus')">شفرة يسوع</button>
+<!--             <button onclick="showCipher('jesus')">شفرة يسوع</button> -->
             <button onclick="showCipher('caesar')">شفرة قيصر</button>
             <button onclick="showCipher('polybius')">الشفرة المربعة</button>
             <button onclick="showCipher('morse')">شفرة مورس</button>
@@ -48,10 +48,10 @@
                     content = `<h2>الشفرة المعكوسة</h2><p>عكس ترتيب الحروف.</p>
                                <p>مثال: "كشافة العذراء مريم بمسرة" -> "ةرس مب ميرم ءرازع ةفاشك"</p>`;
                     break;
-                case 'jesus':
-                    content = `<h2>شفرة يسوع</h2><p>استخدام شبكة (مصفوفة) لتحويل الحروف إلى رموز من رقمين تمثل الصف والعمود.</p>
-                               <p>مثال: "كشافة العذراء مريم بمسرة" -> 51-42-13-34-22 | 33-45-61-24-23 | 56-55-41-52-43</p>`;
-                    break;
+                // case 'jesus':
+                //     content = `<h2>شفرة يسوع</h2><p>استخدام شبكة (مصفوفة) لتحويل الحروف إلى رموز من رقمين تمثل الصف والعمود.</p>
+                //                <p>مثال: "كشافة العذراء مريم بمسرة" -> 51-42-13-34-22 | 33-45-61-24-23 | 56-55-41-52-43</p>`;
+                //     break;
                 case 'caesar':
                     content = `<h2>شفرة قيصر</h2><p>إزاحة كل حرف في النص بمقدار ثابت في الأبجدية.</p>
                                <p>مثال: "كشافة العذراء مريم بمسرة" -> "لمصغحة الغكباغ مرسن ببقفش"</p>`;
